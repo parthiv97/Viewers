@@ -100,6 +100,34 @@ window.config = {
   //   regex: /.*/,
   // },
   dataSources: [
+     {
+      namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
+      sourceName: 'orthanc',
+      configuration: {
+        friendlyName: 'AWS S3 Static wado server',
+        name: 'aws',
+        wadoUriRoot: 'http://localhost:8042/dicom-web',
+        qidoRoot: 'http://localhost:8042/dicom-web',
+        wadoRoot: 'http://localhost:8042/dicom-web',
+        qidoSupportsIncludeField: false,
+        imageRendering: 'wadors',
+        thumbnailRendering: 'wadors',
+        enableStudyLazyLoad: true,
+        supportsFuzzyMatching: true,
+        supportsWildcard: false,
+        staticWado: true,
+        singlepart: 'bulkdata,video',
+        // whether the data source should use retrieveBulkData to grab metadata,
+        // and in case of relative path, what would it be relative to, options
+        // are in the series level or study level (some servers like series some study)
+        bulkDataURI: {
+          enabled: true,
+          relativeResolution: 'studies',
+          transform: url => url.replace('/pixeldata.mp4', '/rendered'),
+        },
+        omitQuotationForMultipartRequest: true,
+      },
+    },
     {
       namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
       sourceName: 'ohif',
