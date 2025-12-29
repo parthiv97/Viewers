@@ -78,7 +78,7 @@ export default function ModeRoute({
   if (dataSourceName !== undefined) {
     extensionManager.setActiveDataSource(dataSourceName);
   }
-
+console.log("extensionManager = ",extensionManager);
   const dataSource = extensionManager.getActiveDataSourceOrNull();
 
   // Only handling one route per mode for now
@@ -117,11 +117,11 @@ export default function ModeRoute({
 
     // Todo: this should not be here, data source should not care about params
     const initializeDataSource = async (params, query) => {
-      await dataSource.initialize({
+      await dataSource?.initialize({
         params,
         query,
       });
-      setStudyInstanceUIDs(dataSource.getStudyInstanceUIDs({ params, query }));
+      setStudyInstanceUIDs(dataSource?.getStudyInstanceUIDs({ params, query }));
     };
 
     initializeDataSource(params, query);

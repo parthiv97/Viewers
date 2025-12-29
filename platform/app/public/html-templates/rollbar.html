@@ -340,7 +340,7 @@
             (i.crossOrigin = ''),
               (i.src = n.rollbarJsUrl),
               o || (i.async = !0),
-              (i.onload = i.onreadystatechange =
+              (i.onload = i?.onreadystatechange =
                 t(function () {
                   if (
                     !(
@@ -350,7 +350,7 @@
                         'complete' !== this.readyState)
                     )
                   ) {
-                    i.onload = i.onreadystatechange = null;
+                    i.onload = i?.onreadystatechange = null;
                     try {
                       c.removeChild(i);
                     } catch (r) {}

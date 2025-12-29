@@ -89,19 +89,26 @@ function DataSourceWrapper(props: withAppTypes) {
   });
 
   const [dataSource, setDataSource] = useState(() => {
-    const dataSourceName = getInitialDataSourceName();
+  const dataSourceName = getInitialDataSourceName();
 
-    if (!dataSourceName) {
-      return extensionManager.getActiveDataSource()[0];
+  if (!dataSourceName) {
+    const activeDS = extensionManager?.getActiveDataSource();
+    if (!activeDS || activeDS.length === 0) {
+      console.warn('No active data source found.');
+      return null; // or handle default data source differently
     }
+    return activeDS[0];
+  }
 
-    const dataSource = extensionManager.getDataSources(dataSourceName)?.[0];
-    if (!dataSource) {
-      throw new Error(`No data source found for ${dataSourceName}`);
-    }
+  const dataSourceList = extensionManager?.getDataSources(dataSourceName);
+  if (!dataSourceList || dataSourceList.length === 0) {
+    console.warn(`No data source found for ${dataSourceName}`);
+    return null; // or throw new Error(...)
+  }
 
-    return dataSource;
-  });
+  return dataSourceList[0];
+});
+
 
   const [data, setData] = useState(DEFAULT_DATA);
   const [isLoading, setIsLoading] = useState(false);
@@ -116,7 +123,7 @@ function DataSourceWrapper(props: withAppTypes) {
    */
   useEffect(() => {
     const initializeDataSource = async () => {
-      await dataSource.initialize({ params, query });
+      await dataSource?.initialize({ params, query });
       setIsDataSourceInitialized(true);
     };
 

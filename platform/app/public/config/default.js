@@ -100,15 +100,15 @@ window.config = {
   //   regex: /.*/,
   // },
   dataSources: [
-    {
-      namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
-      sourceName: 'ohif',
+     {
+      namespace: "@ohif/extension-default.dataSourcesModule.dicomweb",
+      sourceName: "orthanc",
       configuration: {
-        friendlyName: 'AWS S3 Static wado server',
+         friendlyName: 'AWS S3 Static wado server',
         name: 'aws',
-        wadoUriRoot: 'https://d14fa38qiwhyfd.cloudfront.net/dicomweb',
-        qidoRoot: 'https://d14fa38qiwhyfd.cloudfront.net/dicomweb',
-        wadoRoot: 'https://d14fa38qiwhyfd.cloudfront.net/dicomweb',
+        wadoUriRoot: "http://localhost:8042/wado",
+        qidoRoot: "http://localhost:8042/dicom-web",
+        wadoRoot: "http://localhost:8042/dicom-web",
         qidoSupportsIncludeField: false,
         imageRendering: 'wadors',
         thumbnailRendering: 'wadors',
@@ -126,8 +126,37 @@ window.config = {
           transform: url => url.replace('/pixeldata.mp4', '/rendered'),
         },
         omitQuotationForMultipartRequest: true,
+        authorization: 'Basic b3J0aGFuYzpvcnhhbmM='
       },
     },
+    // {
+    //   namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
+    //   sourceName: 'ohif',
+    //   configuration: {
+    //     friendlyName: 'AWS S3 Static wado server',
+    //     name: 'aws',
+    //     wadoUriRoot: 'https://d14fa38qiwhyfd.cloudfront.net/dicomweb',
+    //     qidoRoot: 'https://d14fa38qiwhyfd.cloudfront.net/dicomweb',
+    //     wadoRoot: 'https://d14fa38qiwhyfd.cloudfront.net/dicomweb',
+    //     qidoSupportsIncludeField: false,
+    //     imageRendering: 'wadors',
+    //     thumbnailRendering: 'wadors',
+    //     enableStudyLazyLoad: true,
+    //     supportsFuzzyMatching: true,
+    //     supportsWildcard: false,
+    //     staticWado: true,
+    //     singlepart: 'bulkdata,video',
+    //     // whether the data source should use retrieveBulkData to grab metadata,
+    //     // and in case of relative path, what would it be relative to, options
+    //     // are in the series level or study level (some servers like series some study)
+    //     bulkDataURI: {
+    //       enabled: true,
+    //       relativeResolution: 'studies',
+    //       transform: url => url.replace('/pixeldata.mp4', '/rendered'),
+    //     },
+    //     omitQuotationForMultipartRequest: true,
+    //   },
+    // },
 
     {
       namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
@@ -269,6 +298,27 @@ window.config = {
       },
     },
   ],
+//   dataSources: [
+//   {
+//     namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
+//     sourceName: 'orthanc',
+//     configuration: {
+//       friendlyName: 'Local Orthanc DICOMWeb Server',
+//       name: 'orthanc',
+//       wadoUriRoot: 'http://localhost:8042/wado',
+//       qidoRoot: 'http://localhost:8042/dicom-web',
+//       wadoRoot: 'http://localhost:8042/dicom-web',
+//       qidoSupportsIncludeField: true,
+//       dicomUploadEnabled: true,
+//       imageRendering: 'wadors',
+//       thumbnailRendering: 'wadors',
+//       enableStudyLazyLoad: true,
+//       supportsFuzzyMatching: true,
+//       supportsWildcard: true,
+//       omitQuotationForMultipartRequest: true,
+//     },
+//   },
+// ],
   httpErrorHandler: error => {
     // This is 429 when rejected from the public idc sandbox too often.
     console.warn(error.status);
